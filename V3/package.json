@@ -1,0 +1,8 @@
+{
+  "name": "smartbg-v3",
+  "version": "3.0.0",
+  "private": true,
+  "dependencies": {
+    "@google/genai": "^0.1.1"
+  }
+}

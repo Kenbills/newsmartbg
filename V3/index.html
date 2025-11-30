@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBG - Smart Budget Allocation</title>
+    <meta name="description" content="AI-powered budget allocation for digital entrepreneurs">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#fbf8f6', 100: '#f5efe9', 200: '#ebdcd3', 300: '#dec2b4',
+                400: '#cc9f8a', 500: '#a67c52', 600: '#8c623d', 700: '#734d30',
+                800: '#5e3f29', 900: '#4d3424',
+              }
+            },
+            animation: {
+              'fade-in-down': 'fadeInDown 0.5s ease-out',
+              'fade-in-up': 'fadeInUp 0.5s ease-out',
+            },
+            keyframes: {
+              fadeInDown: { '0%': { opacity: '0', transform: 'translateY(-10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+              fadeInUp: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-grid text-gray-900 dark:text-gray-100 transition-colors duration-200 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.location.reload()">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <svg viewBox="0 0 40 40" fill="none" class="w-10 h-10 text-brand-500 dark:text-brand-400">
+                        <rect x="4" y="4" width="14" height="14" rx="4" class="fill-current opacity-80" />
+                        <rect x="22" y="4" width="14" height="14" rx="4" class="fill-current opacity-40" />
+                        <rect x="4" y="22" width="14" height="14" rx="4" class="fill-current opacity-40" />
+                        <rect x="22" y="22" width="14" height="14" rx="4" class="fill-current opacity-100" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors">
+                    SmartBG
+                </span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all focus:outline-none">
+                    <!-- Icon injected via JS -->
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 pt-24 pb-12 md:pb-20 max-w-5xl">
+        
+        <!-- Hero -->
+        <div class="text-center mb-16 space-y-6 animate-fade-in-down">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
+                Smart Budget Allocation for <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-brand-400 to-brand-600">Digital Goals</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Stop guessing. Let AI analyze your niche to distribute your capital where it matters most.
+            </p>
+        </div>
+
+        <!-- Form Section -->
+        <section class="mb-12 relative z-10">
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 md:p-10 rounded-3xl shadow-2xl shadow-brand-900/5 dark:shadow-black/20 border border-white/20 dark:border-gray-700/50 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Niche Select -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">1. Select Your Niche</label>
+                        <div class="relative group">
+                            <select id="nicheSelect" class="w-full appearance-none bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl py-4 px-5 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all cursor-pointer hover:border-brand-300 dark:hover:border-brand-700">
+                                <option value="" disabled selected>Choose a niche category...</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goal Select -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">2. Select Your Goal</label>
+                        <div class="relative group">
+                            <select id="goalSelect" disabled class="w-full appearance-none bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl py-4 px-5 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                                <option value="" disabled selected>Select a niche first</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Currency -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">3. Currency</label>
+                        <div class="relative group">
+                            <select id="currencySelect" class="w-full appearance-none bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl py-4 px-5 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all cursor-pointer">
+                                <option value="NGN">NGN</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="md:col-span-2 space-y-3">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">4. Total Budget</label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                                <span id="currencySymbol" class="text-gray-400 font-bold text-lg group-focus-within:text-brand-500 transition-colors">₦</span>
+                            </div>
+                            <input type="number" id="budgetInput" min="0" class="w-full bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl py-4 pl-12 pr-5 focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all placeholder-gray-400 text-lg" placeholder="e.g. 5000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden w-full py-20 flex flex-col items-center justify-center animate-pulse space-y-6">
+            <div class="relative">
+                <div class="w-16 h-16 rounded-2xl border-4 border-brand-100 dark:border-brand-900/30"></div>
+                <div class="absolute top-0 left-0 w-16 h-16 rounded-2xl border-4 border-t-brand-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+            </div>
+            <div class="text-center space-y-2">
+                <p class="text-gray-800 dark:text-gray-200 font-bold text-lg">Thinking...</p>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Analyzing market rates & selecting tools</p>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-20 opacity-40">
+            <div class="inline-block p-6 rounded-3xl bg-gray-100 dark:bg-gray-800/50 mb-4 border border-gray-200 dark:border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <p class="text-gray-500 dark:text-gray-400 font-medium">Configure your goal above to generate a strategy.</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden space-y-8 animate-fade-in-up pb-12">
+            <!-- Total Card -->
+            <div class="bg-gradient-to-r from-brand-600 to-brand-700 rounded-3xl p-8 shadow-xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+                <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-24 h-24 bg-black opacity-10 rounded-full blur-xl"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-brand-100 text-sm font-bold uppercase tracking-widest mb-1">Total Allocation</h2>
+                    <p id="totalAmountDisplay" class="text-4xl md:text-5xl font-extrabold tracking-tight">0</p>
+                </div>
+                
+                <!-- Strict Budget Warning -->
+                <div id="strictBudgetCard" class="hidden relative z-10 bg-white/20 backdrop-blur-md border border-white/20 rounded-xl p-4 max-w-md">
+                    <div class="flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-100 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Strict Budget Mode Active</h4>
+                            <p id="strictBudgetMsg" class="text-xs text-brand-50 mt-1 leading-relaxed opacity-90"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items Container -->
+            <div id="itemsContainer" class="grid grid-cols-1 gap-4">
+                <!-- Items injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-8 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2025 SmartBG (V3). All rights reserved.</p>
+            <div class="flex gap-6">
+                <button onclick="window.openModal('how')" class="text-sm text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">How It Works</button>
+                <button onclick="window.openModal('terms')" class="text-sm text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Terms of Use</button>
+                <button onclick="window.openModal('about')" class="text-sm text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Info Modals (How, Terms, About) -->
+    <div id="modalOverlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg transform transition-all duration-300 scale-95 flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
+                <h3 id="modalTitle" class="text-xl font-bold text-gray-900 dark:text-white"></h3>
+                <button onclick="window.closeModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="modalContent" class="p-6 overflow-y-auto text-gray-600 dark:text-gray-300 space-y-4"></div>
+            <div class="p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 rounded-b-2xl">
+                <button onclick="window.closeModal()" class="w-full py-3 px-4 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-500/30">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
