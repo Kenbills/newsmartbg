@@ -404,8 +404,10 @@ window.openModal = function(type) {
     } else {
         title = 'About SmartBG';
         content = `
-            <p>Designed for the modern digital entrepreneur. Powered by <strong>Google Gemini 2.5 Flash</strong>.</p>
-            <p class="text-xs text-gray-500 mt-4">Version 3.0.0 (Vanilla JS)</p>
+            <p>Designed for the modern digital entrepreneur. Built by <strong>Nova Team 3 (Programmify PIP4)</strong>.</p>
+            <p class="text-xs text-gray-500 mt-4">
+  <a href="mailto:tobiadara77@gmail.com">Contact Us →</a>
+</p>
         `;
     }
 
